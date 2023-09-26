@@ -1,11 +1,10 @@
-from typing import Dict, List,Optional
-from pydantic import BaseModel,root_validator
+from typing import Dict, List, Optional
+from pydantic import BaseModel, root_validator,Field
 from datetime import datetime, date
 from uuid import UUID, uuid4
 
 
 class Role(BaseModel):
-    id: UUID
     name: str
     created_at: datetime
     updated_at: datetime
@@ -13,7 +12,6 @@ class Role(BaseModel):
 
 
 class RoleByMenuAccess(BaseModel):
-    id: UUID
     role_id: str
     menu_show: Dict
     created_at: datetime
@@ -22,31 +20,45 @@ class RoleByMenuAccess(BaseModel):
 
 
 class User(BaseModel):
-    id: UUID = uuid4()
-    role_id: Optional[str]
+    role_id: Optional[str] = None
     username: str
     email: str
-    phone_number: Optional[str]
+    phone_number: Optional[str] = None
     password: str
-    is_active: bool=True
-    is_agree: bool=False
-    last_login: datetime
-    is_reset_mail_send: bool=False
-    reset_link: Optional[str]
-    otp: Optional[int]
-    pin: Optional[int]
+    is_active: bool = True
+    is_agree: bool = False
+    last_login: Optional[datetime]=None
+    is_reset_mail_send: bool = False
+    reset_link: Optional[str] = None
+    otp: Optional[int] = None
+    pin: Optional[int] = None
     created_at: datetime
     updated_at: datetime
-    deleted_at: datetime
+    deleted_at: Optional[datetime] = None
 
     @root_validator(pre=True, allow_reuse=True)
-    def set_default_created_at(cls, values):
+    def set_default_values(cls, values):
+        defaults = {
+            "role_id": None,
+            "phone_number": None,
+            "is_active": True,
+            "is_agree": False,
+            "is_reset_mail_send": False,
+            "last_login": None,
+            "otp": None,
+            "pin": None,
+            "deleted_at": None
+        }
+
+        for field, default_value in defaults.items():
+            if field not in values:
+                values[field] = default_value
+
         values['created_at'] = values.get('created_at') or datetime.utcnow()
         return values
 
 
 class UserProfile(BaseModel):
-    id: UUID
     user: str
     dob: date
     age: int
@@ -64,7 +76,6 @@ class UserProfile(BaseModel):
 
 
 class UserOnboarding(BaseModel):
-    id: UUID
     user: str
     pancard_details: Dict
     aadhar_details: Dict
@@ -76,7 +87,6 @@ class UserOnboarding(BaseModel):
 
 
 class Option(BaseModel):
-    id: UUID
     meta_key: str
     title: str
     meta_value: str
@@ -86,7 +96,6 @@ class Option(BaseModel):
 
 
 class BankDetails(BaseModel):
-    id: UUID
     name: str
     logo: str  # filefield
     created_at: datetime
