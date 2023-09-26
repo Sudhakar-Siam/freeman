@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  web:
+    image: authninja:latest
+    container_name: authninja_app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_NAME="freeman_local"
+      - MONGO_URL=""
+

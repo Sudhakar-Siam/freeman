@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+__pycache__/
+*.pyc
+*.pyo
+
+# Local development settings
+.env
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+*.sublime-workspace
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# Python environments
+venv/
+env/
+.venv/
+pip-wheel-metadata/
