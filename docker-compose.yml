@@ -7,8 +7,10 @@ services:
       dockerfile: Dockerfile
     container_name: authninja_app
     ports:
-      - "8000:8000"
+      - "8002:8000"
     environment:
       - DB_NAME="freeman_local"
       - MONGO_URL="mongodb+srv://lddb:lddb123@cluster0.xqdqq1u.mongodb.net/?retryWrites=true&w=majority"
+    volumes:
+      - ./app:/app
 
