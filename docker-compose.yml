@@ -10,5 +10,5 @@ services:
       - "8000:8000"
     environment:
       - DB_NAME="freeman_local"
-      - MONGO_URL=""
+      - MONGO_URL="mongodb+srv://lddb:lddb123@cluster0.xqdqq1u.mongodb.net/?retryWrites=true&w=majority"
 
