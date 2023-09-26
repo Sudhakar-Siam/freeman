@@ -11,6 +11,6 @@ services:
     environment:
       - DB_NAME="freeman_local"
       - MONGO_URL="mongodb+srv://lddb:lddb123@cluster0.xqdqq1u.mongodb.net/?retryWrites=true&w=majority"
-    volumes:
-      - ./app:/app
 
+#    volumes:
+#      - ./app:/app
