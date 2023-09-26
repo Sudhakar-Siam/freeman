@@ -14,12 +14,12 @@ roles_collection = db["role"]
 async def register_admin_user(user: User):
     admin_role = roles_collection.find_one({"name": "admin"})
     hashed_password = hash_password(user.password)
-    admin_user = dict(role_id="string", username="string", email="string", phone_number="string",
-                         password="string", is_active=true, is_agree=false, last_login="2023-09-26T12:52:09.617Z",
-                         is_reset_mail_send=false, reset_link="string", otp=0, pin=0,
-                         created_at="2023-09-26T12:52:09.617Z", updated_at="2023-09-26T12:52:09.617Z",
-                         deleted_at="2023-09-26T12:52:09.617Z"
-                         )
+    admin_user = dict(role_id=str(admin_role["_id"]), username=user.username, email=user.email,
+                      phone_number=user.phone_number,
+                      password=hashed_password, is_active=True, is_agree=False, last_login=None,
+                      is_reset_mail_send=False, reset_link=None, pin=None,
+                      updated_at=None, deleted_at=None
+                      )
     users_collection.insert_one(admin_user)
 
     return {"message": "Admin user registered successfully"}

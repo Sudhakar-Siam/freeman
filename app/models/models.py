@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional
-from pydantic import BaseModel, root_validator,Field
+from pydantic import BaseModel, model_validator,Field
 from datetime import datetime, date
 from uuid import UUID, uuid4
 
@@ -36,25 +36,10 @@ class User(BaseModel):
     updated_at: datetime
     deleted_at: Optional[datetime] = None
 
-    @root_validator(pre=True, allow_reuse=True)
+    @model_validator(pre=True, allow_reuse=True)
     def set_default_values(cls, values):
-        defaults = {
-            "role_id": None,
-            "phone_number": None,
-            "is_active": True,
-            "is_agree": False,
-            "is_reset_mail_send": False,
-            "last_login": None,
-            "otp": None,
-            "pin": None,
-            "deleted_at": None
-        }
-
-        for field, default_value in defaults.items():
-            if field not in values:
-                values[field] = default_value
-
         values['created_at'] = values.get('created_at') or datetime.utcnow()
+        values['otp'] = values.get('otp') or None
         return values
 
 
