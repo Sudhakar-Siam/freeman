@@ -7,3 +7,4 @@ db = conn['freeman_local']
 collection_names = db.list_collection_names()
 
 print(collection_names)
+print(os.path)
